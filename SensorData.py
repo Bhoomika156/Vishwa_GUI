@@ -31,6 +31,15 @@ class SensorDisplay(QWidget):
         self.mode_label = QLabel('Mode:', self)
         self.mode_value_label = QLabel('F', self)
 
+        self.speed_label = QLabel('Speed:', self)
+        self.speed_value_label = QLabel('0', self)
+
+        self.HS_deployed_label = QLabel('HS Deployed:', self)
+        self.HS_deployed_value_label = QLabel('N', self)
+
+        self.PC_deployed_label = QLabel('PC Deployed:', self)
+        self.PC_deployed_value_label = QLabel('N', self)
+
         title_style = "font-size: 25px; margin-top: 5px;"
         label_style = "font-size: 30px; margin-top: 5px;"
         value_style = "font-size: 25px; margin-top: 2px; padding: 5px;"
@@ -53,6 +62,15 @@ class SensorDisplay(QWidget):
 
         self.mode_label.setStyleSheet(label_style)
         self.mode_value_label.setStyleSheet(value_style)
+
+        self.speed_label.setStyleSheet(label_style)
+        self.speed_value_label.setStyleSheet(value_style)
+
+        self.HS_deployed_label.setStyleSheet(label_style)
+        self.HS_deployed_value_label.setStyleSheet(value_style)
+
+        self.PC_deployed_label.setStyleSheet(label_style)
+        self.PC_deployed_value_label.setStyleSheet(value_style)
 
         roll_layout = QVBoxLayout()
         roll_layout.addWidget(self.roll_label)
@@ -78,6 +96,18 @@ class SensorDisplay(QWidget):
         mode_layout.addWidget(self.mode_label)
         mode_layout.addWidget(self.mode_value_label)
 
+        speed_layout = QVBoxLayout()
+        speed_layout.addWidget(self.speed_label)
+        speed_layout.addWidget(self.speed_value_label)
+
+        HS_deployed_layout = QVBoxLayout()
+        HS_deployed_layout.addWidget(self.HS_deployed_label)
+        HS_deployed_layout.addWidget(self.HS_deployed_value_label)
+
+        PC_deployed_layout = QVBoxLayout()
+        PC_deployed_layout.addWidget(self.PC_deployed_label)
+        PC_deployed_layout.addWidget(self.PC_deployed_value_label)
+
         hori_layout_1 = QHBoxLayout()
         hori_layout_1.addLayout(roll_layout)
         hori_layout_1.addLayout(pitch_layout)
@@ -90,11 +120,20 @@ class SensorDisplay(QWidget):
         hori_layout_3.addLayout(packet_layout)
         hori_layout_3.addLayout(mode_layout)
 
+        hori_layout_4=QHBoxLayout()
+        hori_layout_4.addLayout(speed_layout)
+        hori_layout_4.addLayout(HS_deployed_layout)
+
+        hori_layout_5=QHBoxLayout()
+        hori_layout_5.addLayout(PC_deployed_layout)
+
         main_layout = QVBoxLayout()
         main_layout.addWidget(self.title_label)
         main_layout.addLayout(hori_layout_1)
         main_layout.addLayout(hori_layout_2)
         main_layout.addLayout(hori_layout_3)
+        main_layout.addLayout(hori_layout_4)
+        main_layout.addLayout(hori_layout_5)
 
         self.setLayout(main_layout)
 
