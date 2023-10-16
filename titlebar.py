@@ -7,6 +7,17 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 
+# NEEDED FOR RUNNING TITLEBAR.PY AS A STANDALONE APPLICATION
+# class MainWindow(QMainWindow):
+#     def __init__(self):
+#         super(MainWindow, self).__init__()
+
+#         self.setWindowTitle("Your Main Application")
+#         self.setGeometry(100, 100, 800, 600)
+
+#         # Create and add the custom title bar
+#         titlebar = Color(QColor(81, 29, 102), 120, image_width_ratio=1, text_width_ratio=15, image2_width_ratio=5)
+#         self.setMenuWidget(titlebar)
 
 class Color(QWidget):
 
@@ -102,27 +113,28 @@ class Color(QWidget):
         # Set the horizontal layout as the main layout for the Color widget
         self.setLayout(h_layout)
 
-class MainWindow(QMainWindow):
+# NEEDED FOR RUNNING TITLEBAR.PY AS A STANDALONE APPLICATION
+# class MainWindow(QMainWindow):
 
-    def __init__(self):
-        super(MainWindow, self).__init__()
+#     def __init__(self):
+#         super(MainWindow, self).__init__()
 
-        self.setWindowIcon(QtGui.QIcon('cansat_logo.png'))
-        self.setWindowTitle("Ground Station")
+#         self.setWindowIcon(QtGui.QIcon('cansat_logo.png'))
+#         self.setWindowTitle("Ground Station")
 
-        # setting a vertical box layout with this titlebar at the top
-        layout = QVBoxLayout()
-        titlebar = Color(QColor(81, 29, 102), 120, image_width_ratio=1, text_width_ratio=15, image2_width_ratio=5)
-        layout.addWidget(titlebar, alignment=Qt.AlignTop) # taking it to the top
+#         # setting a vertical box layout with this titlebar at the top
+#         layout = QVBoxLayout()
+#         titlebar = Color(QColor(81, 29, 102), 120, image_width_ratio=1, text_width_ratio=15, image2_width_ratio=5)
+#         layout.addWidget(titlebar, alignment=Qt.AlignTop) # taking it to the top
 
-        widget = QWidget()
-        widget.setLayout(layout)
-        self.setCentralWidget(widget)
+#         widget = QWidget()
+#         widget.setLayout(layout)
+#         self.setCentralWidget(widget)
 
 
-app = QApplication(sys.argv)
+# app = QApplication(sys.argv)
 
-window = MainWindow()
-window.show()
+# window = MainWindow()
+# window.show()
 
-app.exec()
+# app.exec()
