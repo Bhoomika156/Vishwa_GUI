@@ -1,8 +1,8 @@
 import sys
 import csv
-from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, QApplication, QMainWindow, QWidget, QLabel, QLineEdit, QPushButton, QStackedWidget ,QGridLayout,QMenuBar,QFileDialog
+from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, QApplication, QMainWindow, QWidget, QLabel, QLineEdit, QPushButton, QStackedWidget ,QGridLayout,QMenuBar,QFileDialog, QVBoxLayout, QPushButton
 from PyQt5.QtCore import Qt,pyqtSignal
-from PyQt5.QtGui import QFont
+from PyQt5.QtGui import QFont, QIcon, QPixmap, QColor
 from PyQt5.QtCore import Qt,QTimer
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
@@ -13,7 +13,7 @@ from statusBar import CircleWidget
 from graph import CSVPlotterApp
 from SensorData import SensorDisplay
 from sidebarinput import Sidebar,SET_TIMEOUT,SIM_ACTIVATE,SIM_DEACTIVATE,SIM_ENABLE,CAL,CX_OFF,CX_ON
-
+from titlebar import Color  # Import the title bar code
 
 class CSVPlotterApp(QMainWindow):
     def __init__(self):
@@ -103,6 +103,14 @@ class MENU(QWidget):
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
+
+        # Create and add the custom title bar
+        titlebar = Color(QColor(81, 29, 102), 120, image_width_ratio=1, text_width_ratio=15, image2_width_ratio=5)
+        self.setMenuWidget(titlebar)
+
+        self.setWindowIcon(QIcon('cansat_logo.png'))
+        self.setWindowTitle("Ground Station")
+
         self.layout_bar=QGridLayout()
         self.layout_bar.sidebar = Sidebar([
             {"name": "CAL", "component": CAL},
@@ -178,6 +186,6 @@ class MainWindow(QMainWindow):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = MainWindow()
-    window.setGeometry(100,100,300,600)
+    window.setGeometry(0,0,1900,900)
     window.show()
     sys.exit(app.exec_())
