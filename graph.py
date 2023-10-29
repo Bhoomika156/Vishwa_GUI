@@ -62,7 +62,7 @@ class CSVPlotterApp(QMainWindow):
                     c1 = data.iloc[:, 0]  # Values from the first column
                     c2 = data.iloc[:, 1]  # Values from the second column
                     c3 = data.iloc[:, 2]  # Values from the third column
-                    c4 = data.iloc[:, 3]  # Values from the fourth column
+                    # c4 = data.iloc[:, 3]  # Values from the fourth column
                     
                     # Clear the previous plot
                     self.figure.clear()
@@ -71,13 +71,13 @@ class CSVPlotterApp(QMainWindow):
                     ax1 = self.figure.add_subplot(221)
                     ax2 = self.figure.add_subplot(222)
                     ax3 = self.figure.add_subplot(223)
-                    ax4 = self.figure.add_subplot(224)
+                    # ax4 = self.figure.add_subplot(224)
 
                     # Plot data on the subplots
-                    ax1.plot(c2, c1, label='Graph 1')
+                    ax1.plot(c1, c3, label='Graph 1')
                     ax2.plot(c2, c3, label='Graph 2')
-                    ax3.plot(c2, c4, label='Graph 3')
-                    ax4.plot(c4, c1, label='Graph 4')
+                    ax3.plot(c3, c3, label='Graph 3')
+                    # ax4.plot(c4, c1, label='Graph 4')
 
                     # Customize plot details for each subplot
                     ax1.set_xlabel('X-axis')
@@ -95,10 +95,10 @@ class CSVPlotterApp(QMainWindow):
                     ax3.set_title('Graph 3')
                     ax3.legend()
 
-                    ax4.set_xlabel('X-axis')
-                    ax4.set_ylabel('Y-axis')
-                    ax4.set_title('Graph 4')
-                    ax4.legend()
+                    # ax4.set_xlabel('X-axis')
+                    # ax4.set_ylabel('Y-axis')
+                    # ax4.set_title('Graph 4')
+                    # ax4.legend()
 
                     # Redraw the canvas
                     self.canvas.draw()

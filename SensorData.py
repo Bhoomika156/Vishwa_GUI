@@ -138,6 +138,10 @@ class SensorDisplay(QWidget):
         self.setLayout(main_layout)
 
     def update_values(self, roll, pitch, yaw):
-        self.roll_value_label.setText(f'{roll:.2f} degrees')
-        self.pitch_value_label.setText(f'{pitch:.2f} degrees')
-        self.yaw_value_label.setText(f'{yaw:.2f} degrees')
+        self.roll = roll
+        self.pitch = pitch
+        self.yaw = yaw
+
+        self.roll_value_label.setText(f'{self.roll:.2f} degrees')
+        self.pitch_value_label.setText(f'{self.pitch:.2f} degrees')
+        self.yaw_value_label.setText(f'{self.yaw:.2f} degrees')
