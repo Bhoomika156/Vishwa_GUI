@@ -5,7 +5,7 @@ from PyQt5.QtCore import Qt, QTimer,pyqtSignal
 import pandas as pd
 import csv
 
-class CircularProgressBar(QWidget):
+class Altitude(QWidget):
     def __init__(self):
         super().__init__()
         self.value = 0
@@ -65,7 +65,7 @@ class CircularProgressBar(QWidget):
         painter.setPen(Qt.black)
         painter.setFont(QFont('Arial', 12))
         painter.drawText(30, 30, 180, 180, Qt.AlignCenter, f'{self.value}%°C')
-        painter.drawText(15, 15, 250, 240, Qt.AlignCenter, f'Temperature    ')
+        painter.drawText(15, 15, 250, 240, Qt.AlignCenter, f'Altitude    ')
 
 
     

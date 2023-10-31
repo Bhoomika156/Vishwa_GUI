@@ -26,8 +26,9 @@ class Sidebar(QWidget):
                 "   background-color: #800080;"
                 "   color: white;"
                 "   border: none;"
-                "   padding: 10px;"
+                "   padding: 5px;"
                 "   margin: 10px;"
+                "font-size: 20px;"
                 "   text-align: center;"
                 "   font-weight: bold;"
                 "width:250px;"
@@ -112,3 +113,8 @@ class SIM_DEACTIVATE(QWidget):
     def __init__(self):
         super().__init__()
         self.label = QLabel("SIM DEACTIVATE")
+
+class SIMP(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.label = QLabel("SIMP")

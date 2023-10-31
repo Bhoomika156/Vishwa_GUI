@@ -10,12 +10,18 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 from OnlyInput import TextInputPage
 from CircProgBar import CircularProgressBar
+from altitude import Altitude
+from longitude import Longitude
+from latitude import Latitude
+from pressure import Pressure
+from voltage import Voltage
 from statusBar import CircleWidget
 from graph import CSVPlotterApp
 from SensorData import SensorDisplay
-from sidebarinput import Sidebar,SET_TIMEOUT,SIM_ACTIVATE,SIM_DEACTIVATE,SIM_ENABLE,CAL,CX_OFF,CX_ON
+from sidebarinput import Sidebar,SET_TIMEOUT,SIM_ACTIVATE,SIM_DEACTIVATE,SIM_ENABLE,CAL,CX_OFF,CX_ON,SIMP
 from titlebar import Color  # Import the title bar code
 from graph import CSVPlotterApp
+# import packet_data 
 
 class MENU(QWidget):
 
@@ -23,6 +29,7 @@ class MENU(QWidget):
 
     def __init__(self, CSVPlotterApp):
         QWidget.__init__(self)
+        # packet_data()
         self.CSVPlotterApp = CSVPlotterApp
         layout = QGridLayout()
         self.setLayout(layout)
@@ -50,7 +57,7 @@ class MENU(QWidget):
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-
+       
         # Create and add the custom title bar
         titlebar = Color(QColor(81, 29, 102), 120, image_width_ratio=1, text_width_ratio=15, image2_width_ratio=5)
         self.setMenuWidget(titlebar)
@@ -67,43 +74,38 @@ class MainWindow(QMainWindow):
             {"name": "SIM ENABLE", "component": SIM_ENABLE},
             {"name": "SIM ACTIVATE", "component": SIM_ACTIVATE},
             {"name": "SIM DEACTIVATE", "component": SIM_DEACTIVATE},
+            {"name": "SIMP", "component": SIMP}
         ])
-         # Simulate updating sensor values
-        roll = 0.0
-        pitch = 0.0
-        yaw = 0.0
-
-        def update_sensor_values(self):
-         nonlocal roll, pitch, yaw
-         roll += 0.1
-         pitch += 0.2
-         yaw += 0.3
-         SensorDisplay.update_values(roll, pitch, yaw)
+         
 
 
-        timer = QTimer()
-        timer.timeout.connect(update_sensor_values)
-        timer.start(1000)  # Update values every second
+    # def update_sensor_values(self):
+    #     roll=1
+    #     pitch=2
+    #     yaw=5
+
+    #     self.right_side.update_values(roll, pitch, yaw)
+
         self.layout_bar.addWidget(MENU(CSVPlotterApp()),0,0,0,6)
         self.layout_bar.addWidget(self.layout_bar.sidebar,1,0,6,2)
         
 
-        self.CirBar_page = CircularProgressBar()
+        self.CirBar_page = Pressure()
         self.layout_bar.addWidget(self.CirBar_page, 1, 1,3,1)
 
         self.CirBar_page = CircularProgressBar()
         self.layout_bar.addWidget(self.CirBar_page, 1, 2,3,1)
 
-        self.CirBar_page = CircularProgressBar()
+        self.CirBar_page = Latitude()
         self.layout_bar.addWidget(self.CirBar_page, 1, 3,3,1)
 
-        self.CirBar_page = CircularProgressBar()
+        self.CirBar_page = Longitude()
         self.layout_bar.addWidget(self.CirBar_page, 3, 1,3,1)
 
-        self.CirBar_page = CircularProgressBar()
+        self.CirBar_page = Altitude()
         self.layout_bar.addWidget(self.CirBar_page, 3, 2,3,1)
 
-        self.CirBar_page = CircularProgressBar()
+        self.CirBar_page = Voltage()
         self.layout_bar.addWidget(self.CirBar_page, 3, 3,3,1)
 
         # Create the CircleWidget and add it to the layout
@@ -130,7 +132,6 @@ if __name__ == "__main__":
 
     app = QApplication(sys.argv)
     window = MainWindow()
-    
     window.setGeometry(0,0,1900,900)
     window.show()
     sys.exit(app.exec_())

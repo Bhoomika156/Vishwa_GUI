@@ -1,13 +1,18 @@
 import sys
-from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, QApplication, QMainWindow, QWidget, QLabel, QLineEdit, QPushButton, QStackedWidget
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QFont
+import csv
+from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, QApplication, QMainWindow, QWidget, QLabel
+from PyQt5.QtCore import Qt, QTimer
+
+
 
 class SensorDisplay(QWidget):
     def __init__(self):
         super().__init__()
-
         self.initUI()
+        self.load_initial_values()  # Load initial values from the CSV
+        self.update_timer = QTimer(self)
+        self.update_timer.timeout.connect(self.update_values)
+        self.update_timer.start(1000)  # Update values every 5 seconds
 
     def initUI(self):
         self.setWindowTitle('Sensor Values Display')
@@ -120,11 +125,11 @@ class SensorDisplay(QWidget):
         hori_layout_3.addLayout(packet_layout)
         hori_layout_3.addLayout(mode_layout)
 
-        hori_layout_4=QHBoxLayout()
+        hori_layout_4 = QHBoxLayout()
         hori_layout_4.addLayout(speed_layout)
         hori_layout_4.addLayout(HS_deployed_layout)
 
-        hori_layout_5=QHBoxLayout()
+        hori_layout_5 = QHBoxLayout()
         hori_layout_5.addLayout(PC_deployed_layout)
 
         main_layout = QVBoxLayout()
@@ -137,11 +142,68 @@ class SensorDisplay(QWidget):
 
         self.setLayout(main_layout)
 
-    def update_values(self, roll, pitch, yaw):
-        self.roll = roll
-        self.pitch = pitch
-        self.yaw = yaw
+    def load_initial_values(self):
+        try:
+            with open('receivedPackets.csv', 'r') as csv_file:
+                csv_reader = csv.reader(csv_file)
 
-        self.roll_value_label.setText(f'{self.roll:.2f} degrees')
-        self.pitch_value_label.setText(f'{self.pitch:.2f} degrees')
-        self.yaw_value_label.setText(f'{self.yaw:.2f} degrees')
+                for row in csv_reader:
+                    pass  # Iterate through the file to get to the last row
+                if len(row) >= 3:
+                    self.roll = float(row[0])
+                    self.pitch = float(row[1])
+                    self.yaw = float(row[2])
+                else:
+                    self.roll = 0.0
+                    self.pitch = 0.0
+                    self.yaw = 0.0
+        except FileNotFoundError:
+            self.roll = 0.0
+            self.pitch = 0.0
+            self.yaw = 0.0
+
+    def update_values(self):
+        try:
+            with open('receivedPackets.csv', 'r') as csv_file:
+                # print("Opened")
+                csv_reader = csv.reader(csv_file)
+                last_row = None  # Initialize a variable to store the last row
+                second_last_row = None  # Initialize a variable to store the last row
+
+                for row in csv_reader:
+                    second_last_row=last_row
+                    last_row=row  # Store the current row
+
+                # print(len(second_last_row))
+                # print(second_last_row)
+                if second_last_row and len(second_last_row) >= 3:
+                    self.roll = float(second_last_row[0])
+                    self.pitch = float(second_last_row[1])
+                    self.yaw = float(second_last_row[2])
+
+                    self.roll_value_label.setText(f'{self.roll:.2f} °')
+                    self.pitch_value_label.setText(f'{self.pitch:.2f} °')
+                    self.yaw_value_label.setText(f'{self.yaw:.2f} °')
+                    # self.time_value_label.setText(count)
+                else:
+                    print("Incomplete data in the last row")
+                    self.roll = 0.0
+                    self.pitch = 0.0
+                    self.yaw = 0.0
+        except FileNotFoundError:
+            self.roll = 0.0
+            self.pitch = 0.0
+            self.yaw = 0.0
+
+
+       
+
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    window = QMainWindow()
+    sensor_display = SensorDisplay()
+    window.setCentralWidget(sensor_display)
+    window.setGeometry(100, 100, 400, 400)
+    window.show()
+    sys.exit(app.exec_())

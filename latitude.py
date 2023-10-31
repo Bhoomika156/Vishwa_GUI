@@ -5,7 +5,7 @@ from PyQt5.QtCore import Qt, QTimer,pyqtSignal
 import pandas as pd
 import csv
 
-class CircularProgressBar(QWidget):
+class Latitude(QWidget):
     def __init__(self):
         super().__init__()
         self.value = 0
@@ -50,7 +50,7 @@ class CircularProgressBar(QWidget):
         painter.setRenderHint(QPainter.Antialiasing)
 
         # Calculate the progress angle
-        progress_angle = int(360 * self.value / 2000)
+        progress_angle = int(360 * self.value / 200)
 
         # Draw the outer circle
         painter.setPen(QPen(QColor(200, 200, 200), 20))  # Set the border thickness
@@ -65,7 +65,7 @@ class CircularProgressBar(QWidget):
         painter.setPen(Qt.black)
         painter.setFont(QFont('Arial', 12))
         painter.drawText(30, 30, 180, 180, Qt.AlignCenter, f'{self.value}%°C')
-        painter.drawText(15, 15, 250, 240, Qt.AlignCenter, f'Temperature    ')
+        painter.drawText(15, 15, 250, 240, Qt.AlignCenter, f'Latitude    ')
 
 
     
